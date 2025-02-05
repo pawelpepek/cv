@@ -3,7 +3,7 @@
 ## [DEMO](https://cvpp-2bfc2.web.app/?highlight=.net,angular,sql)
 
 ## What did I use?
-- Angular
+- Angular Signals (removed zone.js)
 - Tailwind
 - Firebase Hosting
 - Firestore
