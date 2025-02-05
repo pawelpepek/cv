@@ -1,0 +1,10 @@
+<div class="first relative w-[1.6667rem] h-[1.5rem]">
+    @if(version()==="material"){
+    <app-material-icon [icon]="icon()" 
+                       [classStyle]="iconClass()"/>
+    }@else{
+    <i class="text-blue-600 text-[1.3333rem] w-[1.3333rem] text-center first"
+       [ngClass]="['fa-' + version(), 'fa-' + icon(), iconClass()]">
+    </i>
+    }
+  </div>

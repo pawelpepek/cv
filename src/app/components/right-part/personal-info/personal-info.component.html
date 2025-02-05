@@ -1,0 +1,19 @@
+<app-list>
+  <app-icon-link icon="call"
+                 ariaLabel="phone"
+                 [text]="firebase.displayedPhone()"
+                 [href]="firebase.hrefPhone()"/>
+  <app-icon-link icon="mail"
+                 ariaLabel="email"
+                 href="mailto:pawel.pepek@gmail.com"
+                 text="pawel.pepek@gmail.com"/>     
+  <app-icon-link icon="github"
+                 iconVersion="brands" 
+                 ariaLabel="github account"
+                 href="https://github.com/pawelpepek"
+                 text="github.com/pawelpepek"/>             
+  <app-icon-link icon="home"
+                 ariaLabel="github account"
+                 href="https://www.google.com/maps/place/Czechowice-Dziedzice"
+                 text="Czechowice-Dziedzice"/>            
+</app-list>

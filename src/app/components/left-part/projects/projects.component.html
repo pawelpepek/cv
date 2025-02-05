@@ -1,0 +1,19 @@
+<app-section-list title="Najciekawsze projekty">
+  @for(proj of data(); track proj.id ){
+  <li class="mb-3">
+    <div class="font-bold mb-05">
+      @if(proj.href){
+        <app-link ariaLabel="{{proj.name}} link"
+                  [href]="proj.href"
+                  [text]="proj.name"
+                  [showIcon]="true"/>
+      }@else {
+        {{ proj.name }}
+      }
+    </div>
+
+    <app-bolding-div [text]="proj.description" 
+                     [justify]="true"/>
+  </li>
+  }
+</app-section-list>

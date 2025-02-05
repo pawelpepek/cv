@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  line-height: 1.4;
+  color: rgb(30, 30, 30);
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.mb-05 {
+  margin-bottom: 0.125rem;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 700, "GRAD" 0, "opsz" 18;
+  font-size: 1.3333rem;
+}
+
+.country-icon {
+  &.pln {
+    background-image: url('/assets/img/poland.png');
+  }
+
+  &.eng {
+    background-image: url('/assets/img/united-kingdom.png');
+  }
+}
+
+@media (min-height: 1496.6px) {
+  .cv-container {
+    height: 100vh;
+  }
+}
+
+@keyframes blink {
+  0% {
+    font-weight: 400
+  }
+
+  100% {
+    font-weight: bold;
+  }
+}
+
+.blinking-text {
+  animation: blink 1s 1;
+}
+
+@media print {
+  html {
+    font-size: 12px;
+    margin: 0;
+    background-color: whitesmoke;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@page {
+  margin: 0;
+}

@@ -1,0 +1,7 @@
+<div [class.text-justify]="justify()">
+  @for (item of texts(); track $index) {
+  <span [class.blinking-text]="item.bold"
+        [class.font-black]="item.bold" 
+        [class.text-blue-800]="item.bold">{{item.text}}</span>
+  }
+</div>

@@ -1,0 +1,8 @@
+<li class="mb-4">
+  <div class="flex justify-between lg:me-2 print:me-2 font-bold mb-1 gap-2 w-100">
+    <h4>{{ data().position }} {{conjunction()}} {{ data().company }}</h4>
+    <span class="min-w-[9rem] w-[9rem]">{{ data().period }}</span>
+  </div>
+  <app-bolding-div [text]="data().description" 
+                   [justify]="true" />
+</li>

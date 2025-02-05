@@ -1,0 +1,17 @@
+<app-section-list [title]="title()">
+    @for(item of displayedData(); track $index){
+      @if(item.link){
+        <app-icon-link [icon]="item.icon"
+                       [iconVersion]="item.iconVersion ?? 'material'"
+                       [text]="item.text"
+                       [href]="item.link.href"
+                       [ariaLabel]="item.link.ariaLabel"
+                       [showIcon]="!!item.link.showIcon"/>
+      }@else{
+        <app-icon-li [icon]="item.icon"
+                     [version]="item.iconVersion ?? 'material'"
+                     [text]="item.text"/>
+      }
+    }
+  </app-section-list>
+  

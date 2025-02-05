@@ -1,0 +1,5 @@
+<app-section-list title="Doświadczenie zawodowe">
+  @for(exp of data(); track exp.id ){
+  <app-experience-item [data]="exp"/>
+  }
+</app-section-list>

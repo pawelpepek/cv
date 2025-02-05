@@ -1,0 +1,26 @@
+<div class="flex-col items-center lg:flex hidden print:flex gap-6">
+  <img src="https://avatars.githubusercontent.com/u/67840037"
+       class="w-8/12 shadow-lg rounded-2xl mb-3"
+       alt="my foto"/>
+  <div class="w-full flex flex-col gap-7 px-3 pt-3">
+    <app-personal-info />
+    <app-education />
+    <app-section-icon-list title="Umiejętności" [data]="SKILLS"/>
+    <app-section-icon-list title="Profil" [data]="PROFILE_INFO"/>
+  </div>
+</div>
+<div class="flex flex-col md:flex-row md:items-center lg:hidden print:hidden gap-2">
+  <div class="ml-4 flex flex-col align-middle">
+    <img src="https://avatars.githubusercontent.com/u/67840037"
+    class="w-8/12 shadow-lg rounded-2xl mb-3 mx-auto"
+    alt="my foto"/>
+    <app-personal-info class="ml-6"/>
+    <app-education class="ml-6"/>
+    <app-section-icon-list title="Profil" 
+                           class="ml-6"
+                           [data]="PROFILE_INFO"/>
+  </div>
+  <app-section-icon-list title="Umiejętności" 
+                         class="ml-10 md:ml-2 me-3 min-w-[50%]"
+                         [data]="SKILLS"/>
+</div>

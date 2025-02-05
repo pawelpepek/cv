@@ -1,0 +1,18 @@
+<main class="antialiased w-full">
+  <div class="flex justify-center items-center mx-auto cv-container bg-slate-200">
+    <article class="lg:mx-auto lg:w-[66.1667rem] lg:min-w-[66.1667rem] flex flex-col lg:flex-row print:flex-row bg-white print:min-w-[66.1667rem] print:w-[66.1667rem]">
+      <div class="relative h-0 lg:w-0 ml-auto w-100 mr-20 lg:mr-0 print:w-0 print:mr-0">
+        <app-language-toggle class="absolute top-4 left-4 h-3 print:hidden"/>
+        @if(!firebase.hasFullAccess()){
+          <div class="absolute lg:w-[66.1667rem] lg:min-w-[66.1667rem] h-[93.5375rem] flex justify-center items-center z-10 pointer-events-none print:w-[66.1667rem] print:min-w-[66.1667rem]">
+            <div class="text-9xl uppercase font-extrabold opacity-20 rotate-45 tracking-widest">
+              Preview
+            </div>
+          </div>
+        }
+      </div>
+      <app-left-part class="p-4 lg:ps-16 lg:pe-3 lg:pt-14 lg:pb-8 h-full lg:w-[67%] print:ps-16 print:pe-3 print:pt-14 print:pb-8 print:w-[67%]" />
+      <app-right-part class="p-1 bg-blue-50 lg:px-4h-full lg:pt-12 lg:pb-8 lg:w-[33%] lg:pe-8 print:px-4h-full print:pt-12 print:pb-8 print:w-[33%] print:pe-8" />
+    </article>
+  </div>
+</main>
