@@ -5,9 +5,9 @@ import { IconVersion } from '../../../models/icon-version';
 import { LinkComponent } from "../link/link.component";
 
 @Component({
-    selector: 'app-icon-link',
-    imports: [IconComponent, DoubleLiComponent, LinkComponent, LinkComponent],
-    templateUrl: './icon-link.component.html'
+  selector: 'app-icon-link',
+  imports: [IconComponent, DoubleLiComponent, LinkComponent, LinkComponent],
+  templateUrl: './icon-link.component.html'
 })
 export class IconLinkComponent {
   icon = input.required<string>();

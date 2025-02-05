@@ -6,9 +6,9 @@ import { LanguageService } from '../../../services/language.service';
 import { LinkComponent } from "../../shared/link/link.component";
 
 @Component({
-    selector: 'app-projects',
-    imports: [SectionListComponent, BoldingDivComponent, LinkComponent],
-    templateUrl: './projects.component.html'
+  selector: 'app-projects',
+  imports: [SectionListComponent, BoldingDivComponent, LinkComponent],
+  templateUrl: './projects.component.html'
 })
 export class ProjectsComponent {
   data = computed(() => this.languageService.filter(PROJECTS));

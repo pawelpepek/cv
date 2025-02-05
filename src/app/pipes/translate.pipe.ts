@@ -21,5 +21,4 @@ export class TranslatePipe implements PipeTransform {
   transform(text: string): string {
     return this.languageService.isEnglish() ? ENG_TEXTS.get(text) ?? text : text;
   }
-
 }

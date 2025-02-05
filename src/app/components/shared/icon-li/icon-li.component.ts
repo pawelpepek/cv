@@ -5,9 +5,9 @@ import { IconComponent } from '../icon/icon.component';
 import { BoldingDivComponent } from '../bolding-div/bolding-div.component';
 
 @Component({
-    selector: 'app-icon-li',
-    imports: [DoubleLiComponent, IconComponent, BoldingDivComponent],
-    templateUrl: './icon-li.component.html'
+  selector: 'app-icon-li',
+  imports: [DoubleLiComponent, IconComponent, BoldingDivComponent],
+  templateUrl: './icon-li.component.html'
 })
 export class IconLiComponent {
   icon = input.required<string>();

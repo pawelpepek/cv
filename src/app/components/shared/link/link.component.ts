@@ -3,9 +3,9 @@ import { IconComponent } from "../icon/icon.component";
 import { BoldingDivComponent } from "../bolding-div/bolding-div.component";
 
 @Component({
-    selector: 'app-link',
-    templateUrl: './link.component.html',
-    imports: [IconComponent, BoldingDivComponent]
+  selector: 'app-link',
+  templateUrl: './link.component.html',
+  imports: [IconComponent, BoldingDivComponent]
 })
 export class LinkComponent {
   href = input.required<string>();

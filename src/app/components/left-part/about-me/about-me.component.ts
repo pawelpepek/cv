@@ -4,9 +4,9 @@ import { ABOUT_ME } from '../../../models/translatable-info';
 import { LanguageService } from '../../../services/language.service';
 
 @Component({
-    selector: 'app-about-me',
-    imports: [BoldingDivComponent],
-    templateUrl: './about-me.component.html'
+  selector: 'app-about-me',
+  imports: [BoldingDivComponent],
+  templateUrl: './about-me.component.html'
 })
 export class AboutMeComponent {
   data = computed(() => this.languageService.find(ABOUT_ME));

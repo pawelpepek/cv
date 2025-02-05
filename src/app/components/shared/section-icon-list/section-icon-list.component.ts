@@ -6,9 +6,9 @@ import { LanguageService } from '../../../services/language.service';
 import { IconLinkComponent } from "../icon-link/icon-link.component";
 
 @Component({
-    selector: 'app-section-icon-list',
-    imports: [IconLiComponent, SectionListComponent, IconLinkComponent],
-    templateUrl: './section-icon-list.component.html'
+  selector: 'app-section-icon-list',
+  imports: [IconLiComponent, SectionListComponent, IconLinkComponent],
+  templateUrl: './section-icon-list.component.html'
 })
 export class SectionIconListComponent {
   data = input.required<IconTextItem[]>();

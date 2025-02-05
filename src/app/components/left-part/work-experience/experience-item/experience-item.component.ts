@@ -4,9 +4,9 @@ import { BoldingDivComponent } from "../../../shared/bolding-div/bolding-div.com
 import { LanguageService } from '../../../../services/language.service';
 
 @Component({
-    selector: 'app-experience-item',
-    imports: [BoldingDivComponent],
-    templateUrl: './experience-item.component.html'
+  selector: 'app-experience-item',
+  imports: [BoldingDivComponent],
+  templateUrl: './experience-item.component.html'
 })
 export class ExperienceItemComponent {
   data = input.required<Experience>();

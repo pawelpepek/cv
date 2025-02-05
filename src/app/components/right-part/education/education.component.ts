@@ -4,9 +4,9 @@ import { LanguageService } from '../../../services/language.service';
 import { EDUCATIONS } from '../../../models/education';
 
 @Component({
-    selector: 'app-education',
-    imports: [SectionListComponent],
-    templateUrl: './education.component.html'
+  selector: 'app-education',
+  imports: [SectionListComponent],
+  templateUrl: './education.component.html'
 })
 export class EducationComponent {
   data = computed(() => this.languageService.find(EDUCATIONS));

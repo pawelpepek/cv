@@ -10,14 +10,9 @@ import { Languages } from './models/language';
 import { LanguageToggleComponent } from './components/left-part/language-toggle/language-toggle.component';
 
 @Component({
-    selector: 'app-root',
-    imports: [
-        RightPartComponent,
-        LeftPartComponent,
-        LanguageToggleComponent,
-        AngularFireAuthModule
-    ],
-    templateUrl: './app.component.html'
+  selector: 'app-root',
+  imports: [RightPartComponent, LeftPartComponent, LanguageToggleComponent, AngularFireAuthModule],
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
   readonly firebase = inject(FirebaseService);

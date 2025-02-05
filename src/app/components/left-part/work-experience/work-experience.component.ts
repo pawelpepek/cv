@@ -5,9 +5,9 @@ import { ExperienceItemComponent } from "./experience-item/experience-item.compo
 import { LanguageService } from '../../../services/language.service';
 
 @Component({
-    selector: 'app-work-experience',
-    imports: [SectionListComponent, ExperienceItemComponent],
-    templateUrl: './work-experience.component.html'
+  selector: 'app-work-experience',
+  imports: [SectionListComponent, ExperienceItemComponent],
+  templateUrl: './work-experience.component.html'
 })
 export class WorkExperienceComponent {
   data = computed(() => this.languageService.filter(EXPERIENCES));
