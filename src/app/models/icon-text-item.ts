@@ -21,7 +21,7 @@ export const SKILLS: IconTextItem[] = [
   },
   {
     icon: 'language',
-    text: 'ASP.NET (REST, WebAPI)',
+    text: 'ASP.NET Core Web API (REST)',
   },
   {
     icon: 'desktop_windows',
