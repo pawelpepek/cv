@@ -28,8 +28,7 @@ export const PROJECTS: Project[] = [
     name: 'Światłowodowy system monitorowania naprężeń górotworu',
     description:
       'Zaprojektowanie i implementacja aplikacji WebAPI .NET/SPA Angular oraz jej wdrożenie na serwer aplikacji IIS na kopalni KWK Ziemowit.',
-    language: Language.polish,
-    href: "https://alioth.group/pl/alioth-engineering-pl/realizacje"
+    language: Language.polish
   },
   {
     id: 4,
@@ -58,8 +57,7 @@ export const PROJECTS: Project[] = [
     name: 'Fiber Optic Rock Strain Monitoring System',
     description:
       'Designed and implemented a WebAPI .NET/SPA Angular application and deployed it on an IIS application server at KWK Ziemowit mine.',
-    language: Language.english,
-    href: "https://alioth.group/pl/alioth-engineering-pl/realizacje"
+    language: Language.english
   },
   {
     id: 14,
