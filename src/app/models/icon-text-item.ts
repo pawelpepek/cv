@@ -117,7 +117,7 @@ export const ADDITIONAL_INFO: IconTextItem[] = [
   },
   {
     icon: 'school',
-    text: 'Prawie 400 godzin kursów na Udemy z zakresu .NET, Frontend, SQL i Azure',
+    text: 'Ponad 400 godzin kursów na Udemy z zakresu .NET, Frontend, SQL i Azure',
     language: Language.polish,
     link: {
       href: 'https://udemycoursespp.web.app',
@@ -147,7 +147,7 @@ export const ADDITIONAL_INFO: IconTextItem[] = [
   },
   {
     icon: 'school',
-    text: 'Nearly 400 hours of courses on Udemy in .NET, Frontend, SQL, and Azure',
+    text: 'Over 400 hours of courses on Udemy in .NET, Frontend, SQL, and Azure',
     language: Language.english,
     link: {
       href: 'https://udemycoursespp.web.app',
