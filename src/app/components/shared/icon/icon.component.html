@@ -2,7 +2,15 @@
     @if(version()==="material"){
     <app-material-icon [icon]="icon()" 
                        [classStyle]="iconClass()"/>
-    }@else{
+    }@else if(version()==="svg"){
+      <svg class="text-blue-600 text-[1.3333rem] w-[1.3333rem] text-center first" 
+           xmlns="http://www.w3.org/2000/svg" 
+           viewBox="0 0 640 640">
+         <!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+         <path fill="currentColor" [attr.d]="icon()"/>
+      </svg>
+    }
+    @else{
     <i class="text-blue-600 text-[1.3333rem] w-[1.3333rem] text-center first"
        [ngClass]="['fa-' + version(), 'fa-' + icon(), iconClass()]">
     </i>
