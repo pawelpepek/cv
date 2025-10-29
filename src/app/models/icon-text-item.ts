@@ -43,6 +43,11 @@ export const SKILLS: IconTextItem[] = [
     text: 'React (Redux, Router)',
   },
   {
+    icon: 'openai',
+    iconVersion: 'brands',
+    text: 'Codex CLI, Ollama',
+  },
+  {
     icon: 'html5',
     iconVersion: 'brands',
     text: 'HTML, CSS, SCSS',
