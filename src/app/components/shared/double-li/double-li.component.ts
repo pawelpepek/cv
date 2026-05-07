@@ -6,7 +6,7 @@ import { Component, input } from '@angular/core';
   imports: [NgClass],
   template: `
     <li class="flex gap-1 mb-05 items-center leading-[120%] lg:leading-inherit my-2 lg:my-0 print:leading-inherit print:my-0"
-        [ngClass]="multiline() ? 'pb-2' : 'h-[1.9167rem]'">
+        [ngClass]="multiline() ? 'pb-2' : 'h-[1.9167rem] print:h-[1.7rem]'">
       <ng-content select=".first" />
       <ng-content select=".second" />
     </li>`

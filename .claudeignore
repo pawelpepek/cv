@@ -1,0 +1,6 @@
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json
+
+/src/environment/environment.ts
