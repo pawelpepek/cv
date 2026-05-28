@@ -12,6 +12,7 @@ export interface IconTextItem extends Translatable {
     ariaLabel: string;
     showIcon?: boolean;
   }
+  extraLinks?: { href: string; ariaLabel: string }[];
 }
 
 export const SKILLS: IconTextItem[] = [
@@ -119,6 +120,10 @@ export const ADDITIONAL_INFO: IconTextItem[] = [
     icon: 'language_gb_english',
     text: 'Język angielski - Poziom B2',
     language: Language.polish,
+    extraLinks: [
+      { href: 'assets/img/B21.jpg', ariaLabel: 'Certyfikat B2.1' },
+      { href: 'assets/img/B13.jpg', ariaLabel: 'Certyfikat B1.3' },
+    ]
   },
   {
     icon: 'school',
@@ -149,6 +154,10 @@ export const ADDITIONAL_INFO: IconTextItem[] = [
     icon: 'language_gb_english',
     text: 'English - Level B2',
     language: Language.english,
+    extraLinks: [
+      { href: 'assets/img/B21.jpg', ariaLabel: 'Certificate B2.1' },
+      { href: 'assets/img/B13.jpg', ariaLabel: 'Certificate B1.3' },
+    ]
   },
   {
     icon: 'school',

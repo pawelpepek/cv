@@ -10,7 +10,8 @@
       }@else{
         <app-icon-li [icon]="item.icon"
                      [version]="item.iconVersion ?? 'material'"
-                     [text]="item.text"/>
+                     [text]="item.text"
+                     [extraLinks]="item.extraLinks ?? []"/>
       }
     }
   </app-section-list>
