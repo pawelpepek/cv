@@ -1,6 +1,6 @@
 import { computed, inject, Injectable, signal } from "@angular/core";
 import { Language } from "../models/language";
-import { Translatable } from "../models/translatable";
+import { Localized, isLocalizedPair } from "../models/localized";
 import { ActivatedRoute, Router } from "@angular/router";
 
 @Injectable({
@@ -14,15 +14,11 @@ export class LanguageService {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
-  filter<T extends Translatable>(array: T[]): T[] {
-    return array.filter(item =>
-      !item.language
-      || item.language === Language.universal
-      || item.language === this.language());
-  }
-
-  find<T extends Translatable>(array: T[]) {
-    return array.find(item => item.language === this.language())
+  localize<T>(value: Localized<T>): T {
+    if (isLocalizedPair(value)) {
+      return this.isEnglish() ? value.en : value.pl;
+    }
+    return value;
   }
 
   toggle() {

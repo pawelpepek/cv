@@ -1,4 +1,4 @@
-<app-section-list title="Najciekawsze projekty">
+<app-section-list [title]="title">
   @for(proj of data(); track proj.id ){
   <li class="mb-3">
     <div class="font-bold mb-05">

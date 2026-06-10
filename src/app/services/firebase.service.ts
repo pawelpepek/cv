@@ -1,7 +1,5 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
-import { collection, DocumentData, Firestore, getDocs, QueryDocumentSnapshot } from '@angular/fire/firestore';
-import { decryptData } from './crypto';
+import { doc, Firestore, getDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +11,6 @@ export class FirebaseService {
   hrefPhone = computed(() => this.phone() ? `tel:(+48) ${this.phone()}` : "");
   hasFullAccess = computed(() => !!this.phone());
 
-  private readonly auth = inject(Auth);
   private readonly firestore = inject(Firestore);
 
   constructor() {
@@ -23,28 +20,18 @@ export class FirebaseService {
     }
   }
 
-  login(c1: string, c2: string) {
-    const email = decryptData(c1);
-    const password = decryptData(c2);
-
+  loadPhone(key: string) {
     if (this.phone()) {
       return;
     }
 
-    signInWithEmailAndPassword(this.auth, email, password).then(
-      () => {
-        const colRef = collection(this.firestore, 'data');
-        getDocs(colRef).then(snapshot => snapshot.docs.map(doc => this.setPhone(doc)));
+    getDoc(doc(this.firestore, 'contacts', key)).then(snapshot => {
+      const phone = snapshot.data()?.['phone'];
+
+      if (phone) {
+        localStorage.setItem('phone', phone);
+        this.phone.set(phone);
       }
-    )
-  }
-
-  private setPhone(doc: QueryDocumentSnapshot<DocumentData, DocumentData>) {
-    const phone = doc.data()?.['phone']
-
-    if (phone) {
-      localStorage.setItem("phone", phone);
-      this.phone.set(phone);
-    }
+    });
   }
 }

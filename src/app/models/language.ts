@@ -1,5 +1,4 @@
 export enum Language {
-    universal = 1,
     polish = 2,
     english = 3,
 }

@@ -7,11 +7,10 @@
 - Tailwind
 - Firebase Hosting
 - Firestore
-- Firebase Authentication
 - Firebase App Check
 - Font Awesome
 - Google Fonts
-- crypto-js
 
-I don't want my phone number to be public on the web, so I've stored it in the Firestore database. 
-Requests have been secured using Firebase Authentication and App Check (reCAPTCHA 3).
+I don't want my phone number to be public on the web, so I've stored it in the Firestore database.
+It is revealed only when the URL carries the secret document ID (`?key=...`). Reads are locked down with
+Firestore security rules (`get` by exact ID only, no listing) and protected by App Check (reCAPTCHA v3).

@@ -1,15 +1,15 @@
 import { Component, computed, inject, input } from '@angular/core';
-import { TranslatePipe } from '../../../pipes/translate.pipe';
+import { Localized } from '../../../models/localized';
+import { LanguageService } from '../../../services/language.service';
 
 @Component({
   selector: 'app-small-title',
-  template: `<h5 class="font-bold mb-1 text-2xl">{{ displayedTitle()}}</h5>`,
-  providers: [TranslatePipe]
+  template: `<h5 class="font-bold mb-1 text-2xl">{{ displayedTitle() }}</h5>`,
 })
 export class SmallTitleComponent {
-  title = input.required<string>();
+  title = input.required<Localized<string>>();
 
-  private readonly translate = inject(TranslatePipe);
+  private readonly languageService = inject(LanguageService);
 
-  displayedTitle = computed(() => this.translate.transform(this.title()))
+  displayedTitle = computed(() => this.languageService.localize(this.title()));
 }

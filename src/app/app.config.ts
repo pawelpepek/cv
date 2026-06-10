@@ -2,7 +2,6 @@ import { ApplicationConfig, provideZonelessChangeDetection} from '@angular/core'
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from '../environment/environment';
 import { initializeAppCheck, ReCaptchaV3Provider } from '@angular/fire/app-check';
@@ -30,7 +29,6 @@ export const appConfig: ApplicationConfig = {
       return app;
     }
     ),
-    provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
   ]
 };

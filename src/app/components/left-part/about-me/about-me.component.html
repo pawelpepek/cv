@@ -2,7 +2,7 @@
 <h2 class="text-2xl font-bold mb-3">.NET Full-stack developer</h2>
 <section>
   <div class="mb-2">
-    <app-bolding-div [text]="data()?.header??''"/>
+    <app-bolding-div [text]="data().header"/>
   </div>
-  <p class="text-justify">{{data()?.text}}</p>
+  <p class="text-justify">{{ data().text }}</p>
 </section>

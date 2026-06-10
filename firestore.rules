@@ -1,0 +1,23 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Contact details (e.g. phone number) live in documents whose ID is an
+    // unguessable secret, shared only via the CV link (?key=<id>).
+    // - `get` is allowed only by exact document ID (knowing the secret).
+    // - `list` is denied so the collection cannot be enumerated.
+    // - writes are denied; manage data from the Firebase console.
+    // App Check enforcement (reCAPTCHA v3) must be enabled for Firestore
+    // in the console to block automated/bot reads.
+    match /contacts/{id} {
+      allow get: if true;
+      allow list, write: if false;
+    }
+
+    // Everything else is private by default.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

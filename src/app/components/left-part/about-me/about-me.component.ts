@@ -9,7 +9,10 @@ import { LanguageService } from '../../../services/language.service';
   templateUrl: './about-me.component.html'
 })
 export class AboutMeComponent {
-  data = computed(() => this.languageService.find(ABOUT_ME));
+  data = computed(() => ({
+    header: this.languageService.localize(ABOUT_ME.header),
+    text: this.languageService.localize(ABOUT_ME.text),
+  }));
 
   private readonly languageService = inject(LanguageService);
 }

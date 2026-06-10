@@ -1,15 +1,14 @@
 import { IconVersion } from './icon-version';
-import { Language } from './language';
-import { Translatable } from './translatable';
+import { Localized } from './localized';
 
-export interface IconTextItem extends Translatable {
+export interface IconTextItem {
   icon: string;
   iconVersion?: IconVersion;
-  text: string;
+  text: Localized<string>;
   break?: boolean;
   link?: {
     href: string;
-    ariaLabel: string;
+    ariaLabel: Localized<string>;
     showIcon?: boolean;
     internal?: boolean;
   }
@@ -66,14 +65,7 @@ export const SKILLS: IconTextItem[] = [
   },
   {
     icon: 'bug_report',
-    text: 'Testy jednostkowe, integracyjne',
-    language: Language.polish,
-    break: true,
-  },
-  {
-    icon: 'bug_report',
-    text: 'Unit & Integration tests',
-    language: Language.english,
+    text: { pl: 'Testy jednostkowe, integracyjne', en: 'Unit & Integration tests' },
     break: true,
   },
   {
@@ -118,127 +110,63 @@ export const SKILLS: IconTextItem[] = [
 export const ADDITIONAL_INFO: IconTextItem[] = [
   {
     icon: 'language_gb_english',
-    text: 'Język angielski - Poziom B2 - kursy Fluentbe',
-    language: Language.polish,
+    text: { pl: 'Język angielski - Poziom B2 - kursy Fluentbe', en: 'English - B2 Level - Fluentbe courses' },
     link: {
       href: '/certificates',
-      ariaLabel: 'certyfikaty językowe B2',
+      ariaLabel: { pl: 'certyfikaty językowe B2', en: 'language certificates B2' },
       internal: true,
       showIcon: true,
     }
   },
   {
     icon: 'school',
-    text: 'Ponad 400 godzin kursów Udemy na temat programowania, baz danych itp.',
-    language: Language.polish,
+    text: {
+      pl: 'Ponad 400 godzin kursów Udemy na temat programowania, baz danych itp.',
+      en: 'Over 400 hours of courses on Udemy in coding, databases and other topics',
+    },
     link: {
       href: 'https://udemycoursespp.web.app',
-      ariaLabel: "strona z moimi kursami Udemy",
-      showIcon: true
-    }
-  },
-  {
-    icon: 'trophy',
-    text: 'Zwycięstwo w konkursie fotograficznym „Tatrzańska Jesień 2010“',
-    language: Language.polish,
-    link: {
-      href: 'https://z-ne.pl/s,doc,45400,1,1878.html',
-      ariaLabel: "artykuł na temat konkursu",
-      showIcon: true
-    }
-  },
-  {
-    icon: 'landscape',
-    text: 'Hobby - turystyka górska, rower, fotografia',
-    language: Language.polish,
-  },
-  {
-    icon: 'language_gb_english',
-    text: 'English - B2 Level - Fluentbe courses',
-    language: Language.english,
-    link: {
-      href: '/certificates',
-      ariaLabel: 'language certificates B2',
-      internal: true,
+      ariaLabel: { pl: 'strona z moimi kursami Udemy', en: 'website with my Udemy courses' },
       showIcon: true,
     }
   },
   {
-    icon: 'school',
-    text: 'Over 400 hours of courses on Udemy in coding, databases and other topics',
-    language: Language.english,
-    link: {
-      href: 'https://udemycoursespp.web.app',
-      ariaLabel: "website with my Udemy courses",
-      showIcon: true
-    }
-  },
-  {
     icon: 'trophy',
-    text: 'Winner of the nationwide photography competition "Tatrzańska Jesień 2010"',
-    language: Language.english,
+    text: {
+      pl: 'Zwycięstwo w konkursie fotograficznym „Tatrzańska Jesień 2010“',
+      en: 'Winner of the nationwide photography competition "Tatrzańska Jesień 2010"',
+    },
     link: {
       href: 'https://z-ne.pl/s,doc,45400,1,1878.html',
-      ariaLabel: "article about competition",
-      showIcon: true
+      ariaLabel: { pl: 'artykuł na temat konkursu', en: 'article about competition' },
+      showIcon: true,
     }
   },
   {
     icon: 'landscape',
-    text: 'Muntaineering, cycling, photography',
-    language: Language.english
+    text: { pl: 'Hobby - turystyka górska, rower, fotografia', en: 'Muntaineering, cycling, photography' },
   },
 ];
 
 export const PROFILE_INFO: IconTextItem[] = [
   {
     icon: 'lightbulb',
-    text: 'Kreatywność',
-    language: Language.polish,
+    text: { pl: 'Kreatywność', en: 'Creativity' },
   },
   {
     icon: 'forum',
-    text: 'Komunikatywność',
-    language: Language.polish,
+    text: { pl: 'Komunikatywność', en: 'Communication skills' },
   },
   {
     icon: 'groups',
-    text: 'Praca zespołowa',
-    language: Language.polish,
+    text: { pl: 'Praca zespołowa', en: 'Teamwork' },
   },
   {
     icon: 'work',
-    text: 'Zaangażowanie',
-    language: Language.polish,
+    text: { pl: 'Zaangażowanie', en: 'Commitment' },
   },
   {
     icon: 'explore',
-    text: 'Inicjatywa',
-    language: Language.polish,
-  },
-  {
-    icon: 'lightbulb',
-    text: 'Creativity',
-    language: Language.english,
-  },
-  {
-    icon: 'forum',
-    text: 'Communication skills',
-    language: Language.english,
-  },
-  {
-    icon: 'groups',
-    text: 'Teamwork',
-    language: Language.english,
-  },
-  {
-    icon: 'work',
-    text: 'Commitment',
-    language: Language.english,
-  },
-  {
-    icon: 'explore',
-    text: 'Initiative',
-    language: Language.english,
+    text: { pl: 'Inicjatywa', en: 'Initiative' },
   },
 ];

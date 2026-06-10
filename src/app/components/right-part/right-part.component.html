@@ -5,8 +5,8 @@
   <div class="w-full flex flex-col gap-7 px-3 pt-3">
     <app-personal-info />
     <app-education />
-    <app-section-icon-list title="Umiejętności" [data]="SKILLS"/>
-    <app-section-icon-list title="Profil" [data]="PROFILE_INFO"/>
+    <app-section-icon-list [title]="titles.skills" [data]="SKILLS"/>
+    <app-section-icon-list [title]="titles.profile" [data]="PROFILE_INFO"/>
   </div>
 </div>
 <div class="flex flex-col md:flex-row md:items-center lg:hidden print:hidden gap-2">
@@ -16,11 +16,11 @@
     alt="my foto"/>
     <app-personal-info class="ml-6"/>
     <app-education class="ml-6"/>
-    <app-section-icon-list title="Profil" 
+    <app-section-icon-list [title]="titles.profile"
                            class="ml-6"
                            [data]="PROFILE_INFO"/>
   </div>
-  <app-section-icon-list title="Umiejętności" 
+  <app-section-icon-list [title]="titles.skills"
                          class="ml-10 md:ml-2 me-3 min-w-[50%]"
                          [data]="SKILLS"/>
 </div>

@@ -1,7 +1,8 @@
 import { Component, computed, inject } from '@angular/core';
 import { SectionListComponent } from "../../shared/section-list/section-list.component";
 import { LanguageService } from '../../../services/language.service';
-import { EDUCATIONS } from '../../../models/education';
+import { EDUCATION } from '../../../models/education';
+import { SECTION_TITLES } from '../../../models/section-titles';
 
 @Component({
   selector: 'app-education',
@@ -9,7 +10,9 @@ import { EDUCATIONS } from '../../../models/education';
   templateUrl: './education.component.html'
 })
 export class EducationComponent {
-  data = computed(() => this.languageService.find(EDUCATIONS));
+  readonly title = SECTION_TITLES.education;
 
-  readonly languageService = inject(LanguageService);
+  data = computed(() => this.languageService.localize(EDUCATION));
+
+  private readonly languageService = inject(LanguageService);
 }

@@ -1,8 +1,8 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { SectionListComponent } from '../../shared/section-list/section-list.component';
 import { EXPERIENCES } from '../../../models/experience';
 import { ExperienceItemComponent } from "./experience-item/experience-item.component";
-import { LanguageService } from '../../../services/language.service';
+import { SECTION_TITLES } from '../../../models/section-titles';
 
 @Component({
   selector: 'app-work-experience',
@@ -10,7 +10,6 @@ import { LanguageService } from '../../../services/language.service';
   templateUrl: './work-experience.component.html'
 })
 export class WorkExperienceComponent {
-  data = computed(() => this.languageService.filter(EXPERIENCES));
-
-  private readonly languageService = inject(LanguageService);
+  readonly title = SECTION_TITLES.experience;
+  readonly experiences = EXPERIENCES;
 }

@@ -13,5 +13,9 @@ export class ExperienceItemComponent {
 
   conjunction = computed(() => this.langService.isEnglish() ? "at" : "w");
 
+  position = computed(() => this.langService.localize(this.data().position));
+  period = computed(() => this.langService.localize(this.data().period));
+  description = computed(() => this.langService.localize(this.data().description));
+
   private readonly langService = inject(LanguageService);
 }
