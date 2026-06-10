@@ -1,0 +1,39 @@
+<main class="antialiased w-full min-h-screen bg-slate-200">
+  <div class="mx-auto lg:w-[66.1667rem] flex flex-col p-4">
+    <header class="flex items-center justify-between mb-6">
+      <h1 class="text-2xl font-bold text-blue-900">
+        {{ language.isEnglish() ? 'Language certificates' : 'Certyfikaty językowe' }}
+      </h1>
+      <a routerLink="/"
+         class="flex items-center gap-1 text-blue-700 hover:text-blue-900 transition">
+        <span class="material-symbols-outlined">home</span>
+        {{ language.isEnglish() ? 'Back to CV' : 'Powrót do CV' }}
+      </a>
+    </header>
+
+    <div class="flex flex-col sm:flex-row gap-6">
+      <nav class="flex sm:flex-col gap-2 sm:w-32 shrink-0">
+        @for(cert of certs; track cert.id){
+          <button type="button"
+                  (click)="select(cert.id)"
+                  class="flex justify-center items-center py-2 rounded-lg font-semibold text-left transition cursor-pointer"
+                  [class.bg-blue-600]="selected() === cert.id"
+                  [class.text-white]="selected() === cert.id"
+                  [class.bg-white]="selected() !== cert.id"
+                  [class.text-blue-700]="selected() !== cert.id"
+                  [class.hover:bg-blue-100]="selected() !== cert.id">
+                  <span class="w-9">
+                    {{ cert.label }}
+                  </span>
+          </button>
+        }
+      </nav>
+
+      <div class="flex-1 flex justify-center items-start bg-white rounded-lg p-4 shadow">
+        <img [src]="current().src"
+             [alt]="current().label"
+             class="max-w-full h-auto rounded" />
+      </div>
+    </div>
+  </div>
+</main>

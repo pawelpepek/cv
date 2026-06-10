@@ -11,8 +11,8 @@ export interface IconTextItem extends Translatable {
     href: string;
     ariaLabel: string;
     showIcon?: boolean;
+    internal?: boolean;
   }
-  extraLinks?: { href: string; ariaLabel: string }[];
 }
 
 export const SKILLS: IconTextItem[] = [
@@ -118,12 +118,14 @@ export const SKILLS: IconTextItem[] = [
 export const ADDITIONAL_INFO: IconTextItem[] = [
   {
     icon: 'language_gb_english',
-    text: 'Język angielski - Poziom B2',
+    text: 'Język angielski - Poziom B2 - kursy Fluentbe',
     language: Language.polish,
-    extraLinks: [
-      { href: 'assets/img/B21.jpg', ariaLabel: 'Certyfikat B2.1' },
-      { href: 'assets/img/B13.jpg', ariaLabel: 'Certyfikat B1.3' },
-    ]
+    link: {
+      href: '/certificates',
+      ariaLabel: 'certyfikaty językowe B2',
+      internal: true,
+      showIcon: true,
+    }
   },
   {
     icon: 'school',
@@ -152,12 +154,14 @@ export const ADDITIONAL_INFO: IconTextItem[] = [
   },
   {
     icon: 'language_gb_english',
-    text: 'English - Level B2',
+    text: 'English - B2 Level - Fluentbe courses',
     language: Language.english,
-    extraLinks: [
-      { href: 'assets/img/B21.jpg', ariaLabel: 'Certificate B2.1' },
-      { href: 'assets/img/B13.jpg', ariaLabel: 'Certificate B1.3' },
-    ]
+    link: {
+      href: '/certificates',
+      ariaLabel: 'language certificates B2',
+      internal: true,
+      showIcon: true,
+    }
   },
   {
     icon: 'school',

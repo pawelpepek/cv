@@ -5,8 +5,5 @@
             [iconClass]="iconClass()"/>
   <div class="second flex flex-row gap-1 items-center">
     <app-bolding-div [text]="text()" />
-    @for(link of extraLinks(); track $index){
-      <app-cert-link [href]="link.href" [ariaLabel]="link.ariaLabel"/>
-    }
   </div>
 </app-double-li>

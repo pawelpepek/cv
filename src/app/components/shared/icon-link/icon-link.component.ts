@@ -16,4 +16,5 @@ export class IconLinkComponent {
   ariaLabel = input.required<string>();
   text = input.required<string>();
   showIcon = input<boolean>(false);
+  internal = input<boolean>(false);
 }

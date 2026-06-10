@@ -6,12 +6,12 @@
                        [text]="item.text"
                        [href]="item.link.href"
                        [ariaLabel]="item.link.ariaLabel"
-                       [showIcon]="!!item.link.showIcon"/>
+                       [showIcon]="!!item.link.showIcon"
+                       [internal]="!!item.link.internal"/>
       }@else{
         <app-icon-li [icon]="item.icon"
                      [version]="item.iconVersion ?? 'material'"
-                     [text]="item.text"
-                     [extraLinks]="item.extraLinks ?? []"/>
+                     [text]="item.text"/>
       }
     }
   </app-section-list>
