@@ -15,4 +15,5 @@ export class IconLiComponent {
   iconClass = input<string>('');
   text = input.required<string>();
   multiline = input<boolean>(false);
+  liClass = input<string>('');
 }

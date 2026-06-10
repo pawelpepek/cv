@@ -13,6 +13,7 @@ import { IconLinkComponent } from "../icon-link/icon-link.component";
 export class SectionIconListComponent {
   data = input.required<IconTextItem[]>();
   title = input.required<string>();
+  liClass = input<string>('');
 
   displayedData = computed(() => this.languageService.filter(this.data()))
 

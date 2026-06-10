@@ -7,11 +7,13 @@
                        [href]="item.link.href"
                        [ariaLabel]="item.link.ariaLabel"
                        [showIcon]="!!item.link.showIcon"
-                       [internal]="!!item.link.internal"/>
+                       [internal]="!!item.link.internal"
+                       [liClass]="liClass()"/>
       }@else{
         <app-icon-li [icon]="item.icon"
                      [version]="item.iconVersion ?? 'material'"
-                     [text]="item.text"/>
+                     [text]="item.text"
+                     [liClass]="liClass()"/>
       }
     }
   </app-section-list>

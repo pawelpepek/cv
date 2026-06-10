@@ -17,4 +17,5 @@ export class IconLinkComponent {
   text = input.required<string>();
   showIcon = input<boolean>(false);
   internal = input<boolean>(false);
+  liClass = input<string>('');
 }
