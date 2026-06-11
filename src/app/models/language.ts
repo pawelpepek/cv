@@ -3,7 +3,11 @@ export enum Language {
     english = 3,
 }
 
-export const Languages: { pln: Language.polish, eng: Language.english } = {
+// ISO codes are canonical; `pln`/`eng` are legacy aliases kept so that
+// already-shared links keep working.
+export const Languages: Record<string, Language.polish | Language.english> = {
+    pl: Language.polish,
+    en: Language.english,
     pln: Language.polish,
     eng: Language.english,
 }

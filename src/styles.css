@@ -18,14 +18,12 @@ body {
   font-size: 1.3333rem;
 }
 
-.country-icon {
-  &.pln {
-    background-image: url('/assets/img/poland.png');
-  }
+.country-icon.pln {
+  background-image: url('/assets/img/poland.png');
+}
 
-  &.eng {
-    background-image: url('/assets/img/united-kingdom.png');
-  }
+.country-icon.eng {
+  background-image: url('/assets/img/united-kingdom.png');
 }
 
 @media (min-height: 1496.6px) {

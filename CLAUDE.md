@@ -19,11 +19,11 @@ Run a single spec file: `ng test --include='**/<name>.spec.ts'`.
 
 ## Dependency notes (read before touching package.json)
 
-The stack is **Angular 20 + Tailwind 4 + TypeScript ~5.8**. A few constraints are easy to trip over:
+The stack is **Angular 20 + Tailwind 4 + TypeScript ~5.8**. A few notes:
 
-- **AngularFire pins the Angular major.** `@angular/fire@20` has a peer of `@angular/core@^20`, and there is no AngularFire release for Angular 21 — so the whole `@angular/*` stack is held at 20.
-- Install with `npm install --legacy-peer-deps`.
-- Tailwind 4 is wired via [.postcssrc.json](.postcssrc.json) (`@tailwindcss/postcss`) and `@import "tailwindcss"` in `src/styles.scss` — not `@tailwind` directives. There is no `tailwind.config.js` (not needed in v4).
+- **No AngularFire.** The plain `firebase` JS SDK is used directly and **lazy-loaded** via dynamic `import()` in [firebase.service.ts](src/app/services/firebase.service.ts) — do not add `@angular/fire` back (it would pin the Angular major and pull Firebase into the initial bundle).
+- Plain `npm install` works (no `--legacy-peer-deps` needed since AngularFire was removed).
+- Tailwind 4 is wired via [.postcssrc.json](.postcssrc.json) (`@tailwindcss/postcss`) and `@import "tailwindcss"` in `src/styles.css` — not `@tailwind` directives. There is no `tailwind.config.js` (not needed in v4) and no Sass — global styles are plain CSS.
 
 ## Architecture
 
@@ -38,7 +38,7 @@ There is **one** translation mechanism: the [Localized<T>](src/app/models/locali
 
 - Data models use `Localized` on translatable fields only; structural fields (icons, ids, `href`, `sector`) stay plain. Universal text stays a plain string — no duplicated entries.
 - Section headers are `Localized` constants in one place: [SECTION_TITLES](src/app/models/section-titles.ts).
-- `Language` enum is just `polish | english` ([language.ts](src/app/models/language.ts)). Language is driven by the `?lang=pln|eng` query param; `LanguageService.toggle()` flips it (preserving other params). Default is Polish.
+- `Language` enum is just `polish | english` ([language.ts](src/app/models/language.ts)). Language is driven by the `?lang=pl|en` query param (legacy `pln`/`eng` values are still accepted so old links keep working); `LanguageService.toggle()` flips it (preserving other params) and emits the ISO codes. Default is Polish.
 
 (There is no `translate` pipe and no `Translatable`/`filter`/`find` mechanism — those were removed in favor of `Localized`.)
 
@@ -48,7 +48,7 @@ There is **one** translation mechanism: the [Localized<T>](src/app/models/locali
 
 - `?highlight=.net,angular,sql` — comma-separated terms fed to `BoldService.bold`. [BoldService](src/app/services/bold.service.ts) word-boundary-matches these (case-insensitive, regex-escaped so terms are literal) and bolds them inline anywhere they appear.
 - `?exclude=.NET Framework/Core` — comma-separated phrases fed to `BoldService.exclude`; highlight matches falling inside an occurrence of an excluded phrase (case-insensitive) stay unbolded. Phrases cannot contain commas (same limitation as `highlight`).
-- `?lang=pln|eng` — sets language; a missing or invalid value resets to the default (Polish).
+- `?lang=pl|en` — sets language (legacy `pln`/`eng` also accepted); a missing or invalid value resets to the default (Polish).
 - `?key=<firestore-doc-id>` — triggers the phone lookup (see below).
 
 ## Private data (phone)
@@ -56,15 +56,16 @@ There is **one** translation mechanism: the [Localized<T>](src/app/models/locali
 The phone number is not in the source. Flow ([firebase.service.ts](src/app/services/firebase.service.ts)):
 
 1. `?key=<id>` is read as a **Firestore document ID** (the secret — an unguessable ~20-char auto-ID).
-2. `getDoc(doc(firestore, 'contacts', key))` reads the `phone` field. There is no auth, no AES, no shared password in the bundle.
-3. Phone is cached in `localStorage` and exposed via signals (`displayedPhone`, `hrefPhone`, `hasFullAccess`). Without it, a placeholder `000 000 000` shows.
+2. The Firebase SDK (app + App Check + Firestore) is **lazy-loaded and initialized on first use** — only visitors with a `?key=` ever download it; there are no Firebase providers in `app.config.ts`.
+3. `getDoc(doc(firestore, 'contacts', key))` reads the `phone` field. There is no auth, no AES, no shared password in the bundle.
+4. Phone is cached in `localStorage` and exposed via signals (`displayedPhone`, `hrefPhone`, `hasFullAccess`). Without it, a placeholder `000 000 000` shows.
 
 **Conscious decision:** once revealed, the phone stays cached on the visitor's device permanently (no TTL — do not add one). Deleting the Firestore document does *not* retract it from devices that already loaded it; that trade-off is accepted.
 
-Security relies on: an unguessable document ID + Firestore rules that allow `get` (by exact ID) but deny `list`/`write` ([firestore.rules](firestore.rules), versioned in repo) + **App Check** (reCAPTCHA v3, configured in [app.config.ts](src/app/app.config.ts)). App Check enforcement for Firestore must be enabled in the Firebase console; on `localhost` it needs a registered debug token. The collection (`contacts`) and field (`phone`) names are hard-coded in `firebase.service.ts`.
+Security relies on: an unguessable document ID + Firestore rules that allow `get` (by exact ID) but deny `list`/`write` ([firestore.rules](firestore.rules), versioned in repo) + **App Check** (reCAPTCHA v3, configured alongside the lazy Firebase init in [firebase.service.ts](src/app/services/firebase.service.ts)). App Check enforcement for Firestore must be enabled in the Firebase console; on `localhost` it needs a registered debug token. The Firebase config, collection (`contacts`) and field (`phone`) names are hard-coded in `firebase.service.ts`.
 
 ## Configuration & secrets
 
 - [src/environment/environment.ts](src/environment/environment.ts) holds `firebaseApiKey` and `reCaptchaKey` (both public by nature). It is **git-ignored** (see [.claudeignore](.claudeignore)) — when adding env-dependent code, expect this file to be absent in fresh checkouts.
-- Styling is **Tailwind 4** via PostCSS, with global SCSS in `src/styles.scss`.
+- Styling is **Tailwind 4** via PostCSS, with global styles in `src/styles.css` (plain CSS, no Sass).
 - Firebase config lives in [firebase.json](firebase.json): SPA hosting rewrite to `index.html` + `firestore.rules`.

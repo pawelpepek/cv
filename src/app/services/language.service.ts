@@ -23,7 +23,7 @@ export class LanguageService {
 
   toggle() {
     const params = this.route.snapshot.queryParams;
-    const lang = this.isEnglish() ? "pln" : "eng";
+    const lang = this.isEnglish() ? "pl" : "en";
 
     this.router.navigate([], { queryParams: { ...params, lang } });
   }
