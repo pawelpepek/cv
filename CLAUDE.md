@@ -45,7 +45,8 @@ There is **one** translation mechanism: the [Localized<T>](src/app/models/locali
 
 `AppComponent.ngOnInit` ([app.component.ts](src/app/app.component.ts)) reads query params on every navigation:
 
-- `?highlight=.net,angular,sql` — comma-separated terms fed to `BoldService.bold`. [BoldService](src/app/services/bold.service.ts) word-boundary-matches these (case-insensitive) and bolds them inline anywhere they appear.
+- `?highlight=.net,angular,sql` — comma-separated terms fed to `BoldService.bold`. [BoldService](src/app/services/bold.service.ts) word-boundary-matches these (case-insensitive, regex-escaped so terms are literal) and bolds them inline anywhere they appear.
+- `?exclude=.NET Framework/Core` — comma-separated phrases fed to `BoldService.exclude`; highlight matches falling inside an occurrence of an excluded phrase (case-insensitive) stay unbolded. Phrases cannot contain commas (same limitation as `highlight`).
 - `?lang=pln|eng` — sets language.
 - `?key=<firestore-doc-id>` — triggers the phone lookup (see below).
 

@@ -21,9 +21,11 @@ export class AppComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       const key = params['key'] || null;
       const highlight = params['highlight'] ? params['highlight'].split(',') : [];
+      const exclude = params['exclude'] ? params['exclude'].split(',') : [];
       const language = params['lang'] as keyof typeof Languages;
 
       this.boldService.bold.set(highlight);
+      this.boldService.exclude.set(exclude);
 
       if (key) {
         this.firebase.loadPhone(key);
