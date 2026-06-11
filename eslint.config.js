@@ -3,6 +3,7 @@ const eslint = require("@eslint/js");
 const { defineConfig } = require("eslint/config");
 const tseslint = require("typescript-eslint");
 const angular = require("angular-eslint");
+const stylistic = require("@stylistic/eslint-plugin");
 
 module.exports = defineConfig([
   {
@@ -14,7 +15,11 @@ module.exports = defineConfig([
       angular.configs.tsRecommended,
     ],
     processor: angular.processInlineTemplates,
+    plugins: {
+      "@stylistic": stylistic,
+    },
     rules: {
+      "@stylistic/quotes": ["error", "single", { avoidEscape: true }],
       "@angular-eslint/directive-selector": [
         "error",
         {
