@@ -1,7 +1,7 @@
 @if(internal()){
     <a class="hover:text-blue-700 hover:font-bold transition flex flex-row gap-2"
        [routerLink]="href()"
-       [queryParams]="queryParams()"
+       queryParamsHandling="preserve"
        [attr.aria-label]="ariaLabel()">
         <app-bolding-div [text]="text()"/>
         @if(showIcon()){

@@ -5,6 +5,7 @@
         {{ language.isEnglish() ? 'Language certificates' : 'Certyfikaty językowe' }}
       </h1>
       <a routerLink="/"
+         queryParamsHandling="preserve"
          class="flex items-center gap-1 text-blue-700 hover:text-blue-900 transition">
         <span class="material-symbols-outlined">home</span>
         {{ language.isEnglish() ? 'Back to CV' : 'Powrót do CV' }}
