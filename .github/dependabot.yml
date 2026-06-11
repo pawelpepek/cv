@@ -1,0 +1,39 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      # Angular packages must move together; angular-eslint follows the same major.
+      angular:
+        patterns:
+          - "@angular/*"
+          - "@angular-devkit/*"
+          - angular-eslint
+      # Everything else: one PR for minor+patch bumps, majors stay separate.
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
+        exclude-patterns:
+          - "@angular/*"
+          - "@angular-devkit/*"
+          - angular-eslint
+    ignore:
+      # Angular majors go through `ng update` (runs migrations), not Dependabot.
+      - dependency-name: "@angular/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@angular-devkit/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: angular-eslint
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns:
+          - "*"
