@@ -70,7 +70,7 @@ The phone number is not in the source. Flow ([firebase.service.ts](src/app/servi
 1. `?key=<id>` is read as a **Firestore document ID** (the secret — an unguessable ~20-char auto-ID).
 2. The Firebase SDK (app + App Check + Firestore) is **lazy-loaded and initialized on first use** — only visitors with a `?key=` ever download it; there are no Firebase providers in `app.config.ts`.
 3. `getDoc(doc(firestore, 'contacts', key))` reads the `phone` field. There is no auth, no AES, no shared password in the bundle.
-4. Phone is cached in `localStorage` and exposed via signals (`displayedPhone`, `hrefPhone`, `hasPhone`). Without it, a placeholder `000 000 000` shows.
+4. Phone is cached in `localStorage` and exposed via signals (`displayedPhone`, `hrefPhone`, `hasPhone`). Without it, a placeholder `000 000 000` shows. A visit with `?key=` always re-queries Firestore — if the document now holds a different number the cache is refreshed, so a changed number propagates to anyone who follows their link again; a failed lookup keeps the cached value.
 
 **Conscious decision:** once revealed, the phone stays cached on the visitor's device permanently (no TTL — do not add one). Deleting the Firestore document does *not* retract it from devices that already loaded it; that trade-off is accepted.
 

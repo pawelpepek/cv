@@ -30,19 +30,11 @@ export class FirebaseService {
     }
   }
 
+  // Always queries Firestore, even with a phone already cached — the document
+  // behind the key may hold a new number, and the cache should pick it up.
   async loadPhone(key: string) {
-    if (this.phone()) {
-      return;
-    }
-
     try {
-      const [firestore, { doc, getDoc }] = await Promise.all([
-        this.initFirestore(),
-        import('firebase/firestore'),
-      ]);
-
-      const snapshot = await getDoc(doc(firestore, 'contacts', key));
-      const phone = snapshot.data()?.['phone'];
+      const phone = await this.fetchPhone(key);
 
       if (phone) {
         if (typeof localStorage !== 'undefined') {
@@ -51,8 +43,21 @@ export class FirebaseService {
         this.phone.set(phone);
       }
     } catch {
-      // Invalid key, network failure or App Check rejection — keep the placeholder.
+      // Invalid key, network failure or App Check rejection — keep the
+      // cached phone or the placeholder.
     }
+  }
+
+  // Separated from loadPhone so unit tests can stub the network round-trip
+  // (vi.mock cannot intercept these dynamic imports under the Angular builder).
+  protected async fetchPhone(key: string): Promise<string | undefined> {
+    const [firestore, { doc, getDoc }] = await Promise.all([
+      this.initFirestore(),
+      import('firebase/firestore'),
+    ]);
+
+    const snapshot = await getDoc(doc(firestore, 'contacts', key));
+    return snapshot.data()?.['phone'];
   }
 
   private initFirestore(): Promise<Firestore> {

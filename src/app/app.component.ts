@@ -24,8 +24,8 @@ export class AppComponent implements OnInit {
       // Conscious limitation: highlight/exclude are comma-separated, so the
       // terms themselves cannot contain commas. Acceptable for CV keywords —
       // do not invent an escaping scheme for this.
-      const highlight = params['highlight'] ? params['highlight'].split(',') : [];
-      const exclude = params['exclude'] ? params['exclude'].split(',') : [];
+      const highlight = splitTerms(params['highlight']);
+      const exclude = splitTerms(params['exclude']);
       const language = Languages[params['lang'] as keyof typeof Languages];
 
       this.boldService.bold.set(highlight);
@@ -38,4 +38,8 @@ export class AppComponent implements OnInit {
       this.languageService.language.set(language ?? Language.polish);
     });
   }
+}
+
+function splitTerms(param: string | undefined): string[] {
+  return param ? param.split(',').map(term => term.trim()) : [];
 }
