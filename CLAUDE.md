@@ -11,18 +11,19 @@ Single-page Angular 20 CV/résumé app, deployed to Firebase Hosting. The phone 
 - `npm start` — dev server (`ng serve`) at http://localhost:4200
 - `npm run build` — production build to `dist/cv/browser`
 - `npm run watch` — incremental dev build
-- `npm test` — Karma + Jasmine unit tests (Chrome). There are currently no `.spec.ts` files in `src`, so this runs nothing meaningful yet.
+- `npm test` — unit tests, single run (**vitest** + jsdom via the `@angular/build:unit-test` builder — not Karma/Jasmine). Specs live next to their sources (`bold.service.spec.ts`, `language.service.spec.ts`, `localized.spec.ts`).
+- `npm run test:watch` — tests in watch mode
 - `npm run deploy` — builds then `firebase deploy` (Firebase project `cvpp-2bfc2`; deploys hosting **and** Firestore rules)
 
-Run a single test (once specs exist): `ng test --include='**/<name>.component.spec.ts'`.
+Run a single spec file: `ng test --include='**/<name>.spec.ts'`.
 
 ## Dependency notes (read before touching package.json)
 
 The stack is **Angular 20 + Tailwind 4 + TypeScript ~5.8**. A few constraints are easy to trip over:
 
 - **AngularFire pins the Angular major.** `@angular/fire@20` has a peer of `@angular/core@^20`, and there is no AngularFire release for Angular 21 — so the whole `@angular/*` stack is held at 20.
-- Install with `npm install --legacy-peer-deps`. `@fortawesome/angular-fontawesome` is declared but **not imported anywhere** (icons are Material Symbols / SVG / CSS), so its version is cosmetic.
-- Tailwind 4 is wired via [.postcssrc.json](.postcssrc.json) (`@tailwindcss/postcss`) and `@import "tailwindcss"` in `src/styles.scss` — not `@tailwind` directives. `tailwind.config.js` is a leftover v3-style stub and is effectively unused.
+- Install with `npm install --legacy-peer-deps`.
+- Tailwind 4 is wired via [.postcssrc.json](.postcssrc.json) (`@tailwindcss/postcss`) and `@import "tailwindcss"` in `src/styles.scss` — not `@tailwind` directives. There is no `tailwind.config.js` (not needed in v4).
 
 ## Architecture
 
@@ -47,7 +48,7 @@ There is **one** translation mechanism: the [Localized<T>](src/app/models/locali
 
 - `?highlight=.net,angular,sql` — comma-separated terms fed to `BoldService.bold`. [BoldService](src/app/services/bold.service.ts) word-boundary-matches these (case-insensitive, regex-escaped so terms are literal) and bolds them inline anywhere they appear.
 - `?exclude=.NET Framework/Core` — comma-separated phrases fed to `BoldService.exclude`; highlight matches falling inside an occurrence of an excluded phrase (case-insensitive) stay unbolded. Phrases cannot contain commas (same limitation as `highlight`).
-- `?lang=pln|eng` — sets language.
+- `?lang=pln|eng` — sets language; a missing or invalid value resets to the default (Polish).
 - `?key=<firestore-doc-id>` — triggers the phone lookup (see below).
 
 ## Private data (phone)
@@ -57,6 +58,8 @@ The phone number is not in the source. Flow ([firebase.service.ts](src/app/servi
 1. `?key=<id>` is read as a **Firestore document ID** (the secret — an unguessable ~20-char auto-ID).
 2. `getDoc(doc(firestore, 'contacts', key))` reads the `phone` field. There is no auth, no AES, no shared password in the bundle.
 3. Phone is cached in `localStorage` and exposed via signals (`displayedPhone`, `hrefPhone`, `hasFullAccess`). Without it, a placeholder `000 000 000` shows.
+
+**Conscious decision:** once revealed, the phone stays cached on the visitor's device permanently (no TTL — do not add one). Deleting the Firestore document does *not* retract it from devices that already loaded it; that trade-off is accepted.
 
 Security relies on: an unguessable document ID + Firestore rules that allow `get` (by exact ID) but deny `list`/`write` ([firestore.rules](firestore.rules), versioned in repo) + **App Check** (reCAPTCHA v3, configured in [app.config.ts](src/app/app.config.ts)). App Check enforcement for Firestore must be enabled in the Firebase console; on `localhost` it needs a registered debug token. The collection (`contacts`) and field (`phone`) names are hard-coded in `firebase.service.ts`.
 

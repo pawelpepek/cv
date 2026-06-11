@@ -3,7 +3,7 @@ import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { BoldService } from './services/bold.service';
 import { FirebaseService } from './services/firebase.service';
 import { LanguageService } from './services/language.service';
-import { Languages } from './models/language';
+import { Language, Languages } from './models/language';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
       const key = params['key'] || null;
       const highlight = params['highlight'] ? params['highlight'].split(',') : [];
       const exclude = params['exclude'] ? params['exclude'].split(',') : [];
-      const language = params['lang'] as keyof typeof Languages;
+      const language = Languages[params['lang'] as keyof typeof Languages];
 
       this.boldService.bold.set(highlight);
       this.boldService.exclude.set(exclude);
@@ -31,9 +31,7 @@ export class AppComponent implements OnInit {
         this.firebase.loadPhone(key);
       }
 
-      if (language) {
-        this.languageService.language.set(Languages[language])
-      }
+      this.languageService.language.set(language ?? Language.polish);
     });
   }
 }

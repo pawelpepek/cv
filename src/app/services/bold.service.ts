@@ -9,7 +9,9 @@ export class BoldService {
   exclude = signal<string[]>([]);
 
   splitTextToBoldArray(inputText: string): TextPart[] {
-    if (this.bold()?.length === 0) {
+    const terms = this.bold().filter(m => m.trim().length > 0);
+
+    if (terms.length === 0) {
       return [{
         text: inputText,
         bold: false,
@@ -20,7 +22,7 @@ export class BoldService {
 
     const result: TextPart[] = [];
 
-    const regex = new RegExp(`(${this.bold().map(m => {
+    const regex = new RegExp(`(${terms.map(m => {
       const term = escapeRegExp(m);
       return `\\b${term}\\b|(?<=\\W)${term}(?=\\W|$)|^${term}(?=\\W|$)`;
     }).join('|')})`, 'gmi');

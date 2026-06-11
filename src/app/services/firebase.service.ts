@@ -1,6 +1,8 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { doc, Firestore, getDoc } from '@angular/fire/firestore';
 
+const PHONE_STORAGE_KEY = 'phone';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -14,7 +16,11 @@ export class FirebaseService {
   private readonly firestore = inject(Firestore);
 
   constructor() {
-    const phoneFromStorage = localStorage.getItem('phone');
+    if (typeof localStorage === 'undefined') {
+      return;
+    }
+
+    const phoneFromStorage = localStorage.getItem(PHONE_STORAGE_KEY);
     if (phoneFromStorage) {
       this.phone.set(phoneFromStorage);
     }
@@ -29,9 +35,13 @@ export class FirebaseService {
       const phone = snapshot.data()?.['phone'];
 
       if (phone) {
-        localStorage.setItem('phone', phone);
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem(PHONE_STORAGE_KEY, phone);
+        }
         this.phone.set(phone);
       }
+    }).catch(() => {
+      // Invalid key, network failure or App Check rejection — keep the placeholder.
     });
   }
 }
