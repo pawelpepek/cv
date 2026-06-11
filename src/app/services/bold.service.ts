@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { TextPart } from '../models/text-part';
 
 @Injectable({
@@ -8,10 +8,40 @@ export class BoldService {
   bold = signal<string[]>([]);
   exclude = signal<string[]>([]);
 
-  splitTextToBoldArray(inputText: string): TextPart[] {
+  // Compiled once per `bold`/`exclude` change instead of in every
+  // splitTextToBoldArray call — each bolding-div on the page calls it.
+  //
+  // Three alternatives per term because `\b` only matches between a word and
+  // a non-word character: terms that start or end with a non-word character
+  // (".NET", "C++") never match `\b{term}\b`, so they are anchored on a
+  // neighbouring non-word character (or line start / end of input) instead.
+  private readonly boldRegex = computed(() => {
     const terms = this.bold().filter(m => m.trim().length > 0);
 
     if (terms.length === 0) {
+      return null;
+    }
+
+    return new RegExp(`(${terms.map(m => {
+      const term = escapeRegExp(m);
+      return `\\b${term}\\b|(?<=\\W)${term}(?=\\W|$)|^${term}(?=\\W|$)`;
+    }).join('|')})`, 'gmi');
+  });
+
+  private readonly excludeRegex = computed(() => {
+    const phrases = this.exclude().filter(p => p.trim().length > 0);
+
+    if (phrases.length === 0) {
+      return null;
+    }
+
+    return new RegExp(phrases.map(escapeRegExp).join('|'), 'gi');
+  });
+
+  splitTextToBoldArray(inputText: string): TextPart[] {
+    const regex = this.boldRegex();
+
+    if (!regex) {
       return [{
         text: inputText,
         bold: false,
@@ -22,10 +52,8 @@ export class BoldService {
 
     const result: TextPart[] = [];
 
-    const regex = new RegExp(`(${terms.map(m => {
-      const term = escapeRegExp(m);
-      return `\\b${term}\\b|(?<=\\W)${term}(?=\\W|$)|^${term}(?=\\W|$)`;
-    }).join('|')})`, 'gmi');
+    // The shared 'g' regex is stateful — rewind it before scanning a new text.
+    regex.lastIndex = 0;
 
     let lastIndex = 0;
 
@@ -66,13 +94,14 @@ export class BoldService {
   }
 
   private getExcludedRanges(inputText: string): { start: number, end: number }[] {
-    const phrases = this.exclude().filter(p => p.trim().length > 0);
+    const regex = this.excludeRegex();
 
-    if (phrases.length === 0) {
+    if (!regex) {
       return [];
     }
 
-    const regex = new RegExp(phrases.map(escapeRegExp).join('|'), 'gi');
+    regex.lastIndex = 0;
+
     const ranges: { start: number, end: number }[] = [];
 
     let match: RegExpExecArray | null;
