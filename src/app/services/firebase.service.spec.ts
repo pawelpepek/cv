@@ -10,7 +10,7 @@ describe('FirebaseService', () => {
 
     expect(service.hasPhone()).toBe(false);
     expect(service.displayedPhone()).toBe('000 000 000');
-    expect(service.hrefPhone()).toBe('');
+    expect(service.hrefPhone()).toBeUndefined();
   });
 
   it('hydrates the phone from localStorage on creation', () => {

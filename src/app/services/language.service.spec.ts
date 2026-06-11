@@ -39,6 +39,15 @@ describe('LanguageService.localize', () => {
     expect(service.localize({ pl: 'a', en: 'b' })).toBe('b');
   });
 
+  it('mirrors the language to <html lang>', () => {
+    TestBed.tick();
+    expect(document.documentElement.lang).toBe('pl');
+
+    service.language.set(Language.english);
+    TestBed.tick();
+    expect(document.documentElement.lang).toBe('en');
+  });
+
   it('toggle navigates to the other language, merging existing query params', () => {
     service.toggle();
     expect(navigate).toHaveBeenCalledWith([], {
