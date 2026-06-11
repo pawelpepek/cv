@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Single-page Angular 20 CV/résumé app, deployed to Firebase Hosting. The phone number is kept out of the source and revealed only when the URL carries a secret Firestore document ID (see "Private data (phone)" below).
+Single-page Angular 22 CV/résumé app, deployed to Firebase Hosting. The phone number is kept out of the source and revealed only when the URL carries a secret Firestore document ID (see "Private data (phone)" below).
 
 ## Commands
 
@@ -20,7 +20,7 @@ Run a single spec file: `ng test --include='**/<name>.spec.ts'`.
 
 ## Dependency notes (read before touching package.json)
 
-The stack is **Angular 20 + Tailwind 4 + TypeScript ~5.8**. A few notes:
+The stack is **Angular 22 + Tailwind 4 + TypeScript ~6.0** (Node ≥ 22.22.3 required by the Angular CLI). A few notes:
 
 - **No AngularFire.** The plain `firebase` JS SDK is used directly and **lazy-loaded** via dynamic `import()` in [firebase.service.ts](src/app/services/firebase.service.ts) — do not add `@angular/fire` back (it would pin the Angular major and pull Firebase into the initial bundle).
 - Plain `npm install` works (no `--legacy-peer-deps` needed since AngularFire was removed).
@@ -29,7 +29,7 @@ The stack is **Angular 20 + Tailwind 4 + TypeScript ~5.8**. A few notes:
 
 ## Architecture
 
-- **Zoneless, signal-based.** `provideZonelessChangeDetection()` is set in [app.config.ts](src/app/app.config.ts) — zone.js is removed. Use Angular **signals** / `computed()` for all reactive state; do not rely on zone-triggered change detection. Services hold state as signals (e.g. `FirebaseService.phone`, `BoldService.bold`, `LanguageService.language`).
+- **Zoneless, signal-based.** `provideZonelessChangeDetection()` is set in [app.config.ts](src/app/app.config.ts) — zone.js is removed. Use Angular **signals** / `computed()` for all reactive state; do not rely on zone-triggered change detection. Services hold state as signals (e.g. `FirebaseService.phone`, `BoldService.bold`, `LanguageService.language`). Components use Angular 22's default `ChangeDetectionStrategy.OnPush` (no explicit `changeDetection` anywhere — lint forbids opting out); template state must come from signals.
 - **Standalone components only.** No NgModules. Each component declares its own `imports`. Routes in [app.routes.ts](src/app/app.routes.ts): `''` → `CvComponent`, `certificates` → `CertificatesComponent`.
 - **Layout.** `CvComponent` composes `LeftPartComponent` (about-me, work-experience, projects, footer) and `RightPartComponent` (personal-info, education), plus a language toggle. Many small reusable presentational components live under [src/app/components/shared/](src/app/components/shared/) (icons, lists, links, bolding).
 - **Content lives in TypeScript, not a CMS.** Résumé data is exported as typed constants alongside the model interfaces in [src/app/models/](src/app/models/) — e.g. `PROJECTS` in [project.ts](src/app/models/project.ts), `EXPERIENCES` in [experience.ts](src/app/models/experience.ts), `ABOUT_ME` in [translatable-info.ts](src/app/models/translatable-info.ts), `SKILLS`/`PROFILE_INFO`/`ADDITIONAL_INFO` in [icon-text-item.ts](src/app/models/icon-text-item.ts). To edit CV content, edit these constants.
