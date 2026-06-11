@@ -41,5 +41,7 @@ export class AppComponent implements OnInit {
 }
 
 function splitTerms(param: string | undefined): string[] {
-  return param ? param.split(',').map(term => term.trim()) : [];
+  return param
+    ? param.split(',').map(term => term.trim()).filter(term => term.length > 0)
+    : [];
 }

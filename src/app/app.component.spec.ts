@@ -35,8 +35,8 @@ describe('AppComponent query params', () => {
     fixture.detectChanges();
   });
 
-  it('splits highlight and exclude into trimmed term lists', () => {
-    queryParams.next({ highlight: '.net, angular ,sql', exclude: ' .NET Framework/Core ' });
+  it('splits highlight and exclude into trimmed term lists, dropping empty entries', () => {
+    queryParams.next({ highlight: '.net, angular ,,sql, ', exclude: ' .NET Framework/Core ' });
 
     expect(boldService.bold()).toEqual(['.net', 'angular', 'sql']);
     expect(boldService.exclude()).toEqual(['.NET Framework/Core']);

@@ -5,6 +5,11 @@ import { PHONE_COUNTRY_CODE } from '../models/phone';
 
 const PHONE_STORAGE_KEY = 'phone';
 
+// Shape of a contacts/<id> Firestore document.
+interface ContactDocument {
+  phone?: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -57,7 +62,7 @@ export class FirebaseService {
     ]);
 
     const snapshot = await getDoc(doc(firestore, 'contacts', key));
-    return snapshot.data()?.['phone'];
+    return (snapshot.data() as ContactDocument | undefined)?.phone;
   }
 
   private initFirestore(): Promise<Firestore> {

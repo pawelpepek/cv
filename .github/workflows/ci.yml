@@ -80,6 +80,7 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 22
+          cache: npm
 
       - name: Download build output
         uses: actions/download-artifact@v8
@@ -92,14 +93,9 @@ jobs:
         with:
           credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
-      # Keeps the firebase-tools tarballs in the npm cache between runs.
-      - name: Cache npm (firebase-tools)
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: npm-firebase-tools-15-${{ runner.os }}
+      # firebase-tools is a devDependency, so the deploy uses the
+      # lockfile-pinned version instead of whatever `npm i -g` resolves.
+      - run: npm ci
 
       - name: Deploy to Firebase
-        run: |
-          npm i -g firebase-tools@15
-          firebase deploy --only hosting,firestore:rules --project cvpp-2bfc2 --non-interactive
+        run: npx firebase deploy --only hosting,firestore:rules --project cvpp-2bfc2 --non-interactive
