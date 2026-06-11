@@ -1,6 +1,6 @@
 # CV
 
-## [DEMO](https://cvpp-2bfc2.web.app/?highlight=.net,angular,sql)
+## [DEMO](https://cvpp-2bfc2.web.app/?highlight=.net,angular&exclude=ASP.NET)
 
 ## What did I use?
 - Angular Signals (removed zone.js)
