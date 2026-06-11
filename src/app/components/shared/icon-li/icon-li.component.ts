@@ -7,7 +7,9 @@ import { BoldingDivComponent } from '../bolding-div/bolding-div.component';
 @Component({
   selector: 'app-icon-li',
   imports: [DoubleLiComponent, IconComponent, BoldingDivComponent],
-  templateUrl: './icon-li.component.html'
+  templateUrl: './icon-li.component.html',
+  // Used directly inside the <ul> of app-list — see double-li.component.ts.
+  host: { role: 'listitem' }
 })
 export class IconLiComponent {
   icon = input.required<string>();

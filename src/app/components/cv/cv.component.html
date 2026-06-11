@@ -4,7 +4,11 @@
       <div class="relative h-0 lg:w-0 ml-auto w-full print:w-0">
         <app-language-toggle class="absolute top-4 right-4 lg:right-auto lg:left-4 h-3 print:hidden"/>
         @if(!firebase.hasPhone()){
-          <div class="absolute lg:w-[66.1667rem] lg:min-w-[66.1667rem] h-[93.5375rem] flex justify-center items-center z-10 pointer-events-none print:w-[66.1667rem] print:min-w-[66.1667rem]">
+          <!-- Decorative watermark: aria-hidden for assistive tech; the intentionally
+               low contrast is excluded from the axe audit via data-testid (e2e/a11y.spec.ts). -->
+          <div aria-hidden="true"
+               data-testid="preview-watermark"
+               class="absolute lg:w-[66.1667rem] lg:min-w-[66.1667rem] h-[93.5375rem] flex justify-center items-center z-10 pointer-events-none print:w-[66.1667rem] print:min-w-[66.1667rem]">
             <div class="text-9xl uppercase font-extrabold opacity-20 rotate-45 tracking-widest">
               Preview
             </div>

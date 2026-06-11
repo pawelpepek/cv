@@ -1,1 +1,1 @@
-export type IconVersion = "material" | "brands" | "svg"
+export type IconVersion = 'material' | 'brands' | 'svg'

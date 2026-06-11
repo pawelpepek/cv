@@ -6,10 +6,10 @@ import { BoldService } from '../../../services/bold.service';
   templateUrl: './bolding-div.component.html'
 })
 export class BoldingDivComponent {
+  private readonly boldService = inject(BoldService);
+
   text = input.required<string>();
   justify = input<boolean>(false);
 
   texts = computed(() => this.boldService.splitTextToBoldArray(this.text()));
-
-  readonly boldService = inject(BoldService);
 }

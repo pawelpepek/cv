@@ -1,5 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
-import { BoldingDivComponent } from "../../shared/bolding-div/bolding-div.component";
+import { BoldingDivComponent } from '../../shared/bolding-div/bolding-div.component';
 import { ABOUT_ME } from '../../../models/translatable-info';
 import { LanguageService } from '../../../services/language.service';
 

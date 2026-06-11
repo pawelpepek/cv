@@ -1,4 +1,4 @@
-import { Localized } from "./localized";
+import { Localized } from './localized';
 
 export interface Project {
   id: number;
@@ -42,6 +42,6 @@ export const PROJECTS: Project[] = [
       pl: 'Stworzenie aplikacji internetowej do wyszukiwania tras graniowych w Tatrach Wysokich jako WebAPI .NET/SPA React, wdrożonej w chmurze Microsoft Azure.',
       en: 'Development of a web application for searching ridge climbing routes in the High Tatras as a WebAPI .NET/SPA React, deployed in the Microsoft Azure cloud.',
     },
-    href: "https://graniowki.pl",
+    href: 'https://graniowki.pl',
   },
 ];

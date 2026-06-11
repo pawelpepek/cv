@@ -1,9 +1,9 @@
 import { Component, computed, inject } from '@angular/core';
 import { SectionListComponent } from '../../shared/section-list/section-list.component';
 import { PROJECTS } from '../../../models/project';
-import { BoldingDivComponent } from "../../shared/bolding-div/bolding-div.component";
+import { BoldingDivComponent } from '../../shared/bolding-div/bolding-div.component';
 import { LanguageService } from '../../../services/language.service';
-import { LinkComponent } from "../../shared/link/link.component";
+import { LinkComponent } from '../../shared/link/link.component';
 import { SECTION_TITLES } from '../../../models/section-titles';
 
 @Component({

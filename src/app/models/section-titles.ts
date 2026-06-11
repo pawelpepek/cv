@@ -1,4 +1,4 @@
-import { Localized } from "./localized";
+import { Localized } from './localized';
 
 export const SECTION_TITLES = {
   experience: { pl: 'Doświadczenie zawodowe', en: 'Work experience' },

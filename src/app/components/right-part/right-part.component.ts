@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { PersonalInfoComponent } from "./personal-info/personal-info.component";
-import { EducationComponent } from "./education/education.component";
+import { PersonalInfoComponent } from './personal-info/personal-info.component';
+import { EducationComponent } from './education/education.component';
 import { SectionIconListComponent } from '../shared/section-icon-list/section-icon-list.component';
 import { PROFILE_INFO, SKILLS } from '../../models/icon-text-item';
 import { SECTION_TITLES } from '../../models/section-titles';

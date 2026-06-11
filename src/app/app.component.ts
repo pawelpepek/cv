@@ -21,6 +21,9 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.pipe(this.destroyed).subscribe(params => {
       const key = params['key'] || null;
+      // Conscious limitation: highlight/exclude are comma-separated, so the
+      // terms themselves cannot contain commas. Acceptable for CV keywords —
+      // do not invent an escaping scheme for this.
       const highlight = params['highlight'] ? params['highlight'].split(',') : [];
       const exclude = params['exclude'] ? params['exclude'].split(',') : [];
       const language = Languages[params['lang'] as keyof typeof Languages];
@@ -29,7 +32,7 @@ export class AppComponent implements OnInit {
       this.boldService.exclude.set(exclude);
 
       if (key) {
-        this.firebase.loadPhone(key);
+        void this.firebase.loadPhone(key);
       }
 
       this.languageService.language.set(language ?? Language.polish);

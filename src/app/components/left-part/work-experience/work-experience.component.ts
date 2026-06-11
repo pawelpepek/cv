@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { SectionListComponent } from '../../shared/section-list/section-list.component';
 import { EXPERIENCES } from '../../../models/experience';
-import { ExperienceItemComponent } from "./experience-item/experience-item.component";
+import { ExperienceItemComponent } from './experience-item/experience-item.component';
 import { SECTION_TITLES } from '../../../models/section-titles';
 
 @Component({

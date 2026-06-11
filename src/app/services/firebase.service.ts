@@ -1,6 +1,7 @@
 import { computed, Injectable, signal } from '@angular/core';
 import type { Firestore } from 'firebase/firestore';
 import { environment } from '../../environment/environment';
+import { PHONE_COUNTRY_CODE } from '../models/phone';
 
 const PHONE_STORAGE_KEY = 'phone';
 
@@ -11,7 +12,7 @@ export class FirebaseService {
   phone = signal<string>('');
 
   displayedPhone = computed(() => this.phone() ? this.phone() : '000 000 000');
-  hrefPhone = computed(() => this.phone() ? `tel:+48${this.phone().replace(/\s+/g, '')}` : "");
+  hrefPhone = computed(() => this.phone() ? `tel:${PHONE_COUNTRY_CODE}${this.phone().replace(/\s+/g, '')}` : undefined);
   hasPhone = computed(() => !!this.phone());
 
   // The Firebase SDK is loaded lazily, only when a ?key= is present —
@@ -70,7 +71,6 @@ export class FirebaseService {
         apiKey: environment.firebaseApiKey,
         authDomain: 'cvpp-2bfc2.firebaseapp.com',
         messagingSenderId: '911715717728',
-        measurementId: 'G-6FKGGQ7B5W',
       });
 
       initializeAppCheck(app, {

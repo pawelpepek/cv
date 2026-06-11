@@ -3,7 +3,7 @@ import { IconTextItem } from '../../../models/icon-text-item';
 import { IconLiComponent } from '../icon-li/icon-li.component';
 import { SectionListComponent } from '../section-list/section-list.component';
 import { LanguageService } from '../../../services/language.service';
-import { IconLinkComponent } from "../icon-link/icon-link.component";
+import { IconLinkComponent } from '../icon-link/icon-link.component';
 import { Localized } from '../../../models/localized';
 
 @Component({

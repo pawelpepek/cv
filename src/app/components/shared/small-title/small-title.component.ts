@@ -4,7 +4,7 @@ import { LanguageService } from '../../../services/language.service';
 
 @Component({
   selector: 'app-small-title',
-  template: `<h5 class="font-bold mb-1 text-2xl">{{ displayedTitle() }}</h5>`,
+  template: '<h5 class="font-bold mb-1 text-2xl">{{ displayedTitle() }}</h5>',
 })
 export class SmallTitleComponent {
   title = input.required<Localized<string>>();

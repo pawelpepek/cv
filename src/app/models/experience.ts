@@ -1,4 +1,4 @@
-import { Localized } from "./localized";
+import { Localized } from './localized';
 
 export enum Sector {
   finance,
@@ -17,7 +17,7 @@ export interface Experience {
 export const EXPERIENCES: Experience[] = [
   {
     id: 1,
-    period: { pl: 'XI 2024 - nadal', en: 'XI 2024 - still' },
+    period: { pl: 'XI 2024 - nadal', en: 'XI 2024 - present' },
     position: { pl: 'Programista', en: 'Developer' },
     sector: Sector.programming,
     description: {
@@ -54,7 +54,7 @@ export const EXPERIENCES: Experience[] = [
     position: { pl: 'Specjalista ds. ryzyka', en: 'Risk Specialist' },
     sector: Sector.finance,
     description: {
-      pl: 'Automatyzacja raportowania Excel/VBA i tworzenie modeli zarzadzania ryzykiem.',
+      pl: 'Automatyzacja raportowania Excel/VBA i tworzenie modeli zarządzania ryzykiem.',
       en: 'Automate Excel/VBA reporting and build risk management models.',
     },
     company: 'Dom Maklerski IDM S.A.',
