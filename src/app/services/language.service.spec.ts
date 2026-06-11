@@ -6,13 +6,15 @@ import { Language } from '../models/language';
 
 describe('LanguageService.localize', () => {
   let service: LanguageService;
+  let navigate: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
+    navigate = vi.fn();
     TestBed.configureTestingModule({
       providers: [
         provideZonelessChangeDetection(),
         { provide: ActivatedRoute, useValue: { snapshot: { queryParams: {} } } },
-        { provide: Router, useValue: { navigate: () => {} } },
+        { provide: Router, useValue: { navigate } },
       ],
     });
     service = TestBed.inject(LanguageService);
@@ -35,5 +37,20 @@ describe('LanguageService.localize', () => {
 
     expect(service.isEnglish()).toBe(true);
     expect(service.localize({ pl: 'a', en: 'b' })).toBe('b');
+  });
+
+  it('toggle navigates to the other language, merging existing query params', () => {
+    service.toggle();
+    expect(navigate).toHaveBeenCalledWith([], {
+      queryParams: { lang: 'en' },
+      queryParamsHandling: 'merge',
+    });
+
+    service.language.set(Language.english);
+    service.toggle();
+    expect(navigate).toHaveBeenLastCalledWith([], {
+      queryParams: { lang: 'pl' },
+      queryParamsHandling: 'merge',
+    });
   });
 });

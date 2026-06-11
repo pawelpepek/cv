@@ -9,10 +9,11 @@ Single-page Angular 20 CV/résumé app, deployed to Firebase Hosting. The phone 
 ## Commands
 
 - `npm start` — dev server (`ng serve`) at http://localhost:4200
-- `npm run build` — production build to `dist/cv/browser`
+- `npm run build` — production build to `dist/cv/browser`, **statically prerendered** (see "Prerendering" below)
 - `npm run watch` — incremental dev build
-- `npm test` — unit tests, single run (**vitest** + jsdom via the `@angular/build:unit-test` builder — not Karma/Jasmine). Specs live next to their sources (`bold.service.spec.ts`, `language.service.spec.ts`, `localized.spec.ts`).
+- `npm test` — unit tests, single run (**vitest** + jsdom via the `@angular/build:unit-test` builder — not Karma/Jasmine). Specs live next to their sources (services, `app.component.spec.ts`, `localized.spec.ts`).
 - `npm run test:watch` — tests in watch mode
+- `npm run lint` — ESLint via angular-eslint (flat config in [eslint.config.js](eslint.config.js); also runs in CI)
 - `npm run deploy` — builds then `firebase deploy` (Firebase project `cvpp-2bfc2`; deploys hosting **and** Firestore rules)
 
 Run a single spec file: `ng test --include='**/<name>.spec.ts'`.
@@ -24,6 +25,7 @@ The stack is **Angular 20 + Tailwind 4 + TypeScript ~5.8**. A few notes:
 - **No AngularFire.** The plain `firebase` JS SDK is used directly and **lazy-loaded** via dynamic `import()` in [firebase.service.ts](src/app/services/firebase.service.ts) — do not add `@angular/fire` back (it would pin the Angular major and pull Firebase into the initial bundle).
 - Plain `npm install` works (no `--legacy-peer-deps` needed since AngularFire was removed).
 - Tailwind 4 is wired via [.postcssrc.json](.postcssrc.json) (`@tailwindcss/postcss`) and `@import "tailwindcss"` in `src/styles.css` — not `@tailwind` directives. There is no `tailwind.config.js` (not needed in v4) and no Sass — global styles are plain CSS.
+- `@angular/ssr` + `@angular/platform-server` are used **only for build-time prerendering** (static output); `express` is not a dependency and must not become one.
 
 ## Architecture
 
@@ -31,6 +33,15 @@ The stack is **Angular 20 + Tailwind 4 + TypeScript ~5.8**. A few notes:
 - **Standalone components only.** No NgModules. Each component declares its own `imports`. Routes in [app.routes.ts](src/app/app.routes.ts): `''` → `CvComponent`, `certificates` → `CertificatesComponent`.
 - **Layout.** `CvComponent` composes `LeftPartComponent` (about-me, work-experience, projects, footer) and `RightPartComponent` (personal-info, education), plus a language toggle. Many small reusable presentational components live under [src/app/components/shared/](src/app/components/shared/) (icons, lists, links, bolding).
 - **Content lives in TypeScript, not a CMS.** Résumé data is exported as typed constants alongside the model interfaces in [src/app/models/](src/app/models/) — e.g. `PROJECTS` in [project.ts](src/app/models/project.ts), `EXPERIENCES` in [experience.ts](src/app/models/experience.ts), `ABOUT_ME` in [translatable-info.ts](src/app/models/translatable-info.ts), `SKILLS`/`PROFILE_INFO`/`ADDITIONAL_INFO` in [icon-text-item.ts](src/app/models/icon-text-item.ts). To edit CV content, edit these constants.
+
+## Prerendering (static SSG)
+
+The production build prerenders both routes to static HTML at build time (`outputMode: "static"` in [angular.json](angular.json) + [src/main.server.ts](src/main.server.ts) + [app.config.server.ts](src/app/app.config.server.ts) + [app.routes.server.ts](src/app/app.routes.server.ts)). There is **no Node server in production** — Firebase Hosting serves `index.html` and `certificates/index.html` as plain files; the SPA rewrite stays as a fallback.
+
+- The prerendered HTML is the **default state**: Polish, placeholder phone, "Preview" watermark. Query-param features (`?lang`, `?highlight`, `?key`…) apply client-side after bootstrap, as before.
+- **No hydration** (`provideClientHydration` is deliberately absent): the client re-renders destructively, which avoids hydration-mismatch risk when query params change the initial content. Don't add it without handling that.
+- Browser globals in services must stay guarded (`typeof localStorage === 'undefined'`) — prerendering executes the app in Node. The Firebase SDK is never loaded during prerender (no `?key=`).
+- The `@grpc/*` CommonJS build warnings come from bundling Firestore's Node entry for the server build; they're harmless (the server bundle isn't shipped).
 
 ## Bilingual (PL/EN) content
 
@@ -58,7 +69,7 @@ The phone number is not in the source. Flow ([firebase.service.ts](src/app/servi
 1. `?key=<id>` is read as a **Firestore document ID** (the secret — an unguessable ~20-char auto-ID).
 2. The Firebase SDK (app + App Check + Firestore) is **lazy-loaded and initialized on first use** — only visitors with a `?key=` ever download it; there are no Firebase providers in `app.config.ts`.
 3. `getDoc(doc(firestore, 'contacts', key))` reads the `phone` field. There is no auth, no AES, no shared password in the bundle.
-4. Phone is cached in `localStorage` and exposed via signals (`displayedPhone`, `hrefPhone`, `hasFullAccess`). Without it, a placeholder `000 000 000` shows.
+4. Phone is cached in `localStorage` and exposed via signals (`displayedPhone`, `hrefPhone`, `hasPhone`). Without it, a placeholder `000 000 000` shows.
 
 **Conscious decision:** once revealed, the phone stays cached on the visitor's device permanently (no TTL — do not add one). Deleting the Firestore document does *not* retract it from devices that already loaded it; that trade-off is accepted.
 

@@ -12,7 +12,7 @@ export class FirebaseService {
 
   displayedPhone = computed(() => this.phone() ? this.phone() : '000 000 000');
   hrefPhone = computed(() => this.phone() ? `tel:+48${this.phone().replace(/\s+/g, '')}` : "");
-  hasFullAccess = computed(() => !!this.phone());
+  hasPhone = computed(() => !!this.phone());
 
   // The Firebase SDK is loaded lazily, only when a ?key= is present —
   // most visitors never download it.
