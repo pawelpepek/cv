@@ -18,7 +18,7 @@
     "@angular/compiler": "^22.0.1",
     "@angular/core": "^22.0.1",
     "@angular/platform-browser": "^22.0.1",
-    "@angular/platform-server": "~22.0.1",
+    "@angular/platform-server": "~22.0.7",
     "@angular/router": "^22.0.1",
     "@angular/ssr": "~22.0.1",
     "firebase": "^12.14.0",
