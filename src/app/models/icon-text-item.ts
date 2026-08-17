@@ -65,7 +65,7 @@ export const SKILLS: IconTextItem[] = [
   },
   {
     icon: 'bug_report',
-    text: { pl: 'Testy jednostkowe, integracyjne', en: 'Unit & Integration tests' },
+    text: { pl: 'Testy jednostkowe, integracyjne, E2E', en: 'Unit, Integration & E2E tests' },
     break: true,
   },
   {
@@ -144,7 +144,7 @@ export const ADDITIONAL_INFO: IconTextItem[] = [
   },
   {
     icon: 'landscape',
-    text: { pl: 'Hobby - turystyka górska, rower, fotografia', en: 'Muntaineering, cycling, photography' },
+    text: { pl: 'Hobby - turystyka górska, rower, fotografia', en: 'Hiking, cycling, photography' },
   },
 ];
 

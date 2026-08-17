@@ -7,8 +7,8 @@ export interface AboutMe {
 
 export const ABOUT_ME: AboutMe = {
     header: {
-        pl: 'Full‑stack developer z dużym doświadczeniem w technologiach .NET, Angular i React, aktywnie korzystający z agentic coding.',
-        en: 'Full-stack developer with extensive experience in .NET, Angular, and React, actively using agentic coding.',
+        pl: 'Full-stack developer z ponad 8-letnim doświadczeniem w tworzeniu i utrzymaniu aplikacji biznesowych. Specjalizuję się w .NET, Angular i React; mam doświadczenie w systemach finansowych, HR/payroll, wdrożeniach produkcyjnych oraz automatyzacji CI/CD. Aktywnie wykorzystuję podejście agentic coding w procesie tworzenia oprogramowania.',
+        en: 'Full-stack developer with over 8 years of experience building and maintaining business applications. I specialize in .NET, Angular, and React, with experience in financial and HR/payroll systems, production deployments, and CI/CD automation. Actively leverage agentic coding in the software development process.',
     },
     text: {
         pl: 'Jestem kreatywnym, zaangażowanym i ceniącym pracę zespołową profesjonalistą. Skupiam się na ciągłym rozwoju, pogłębianiu wiedzy oraz doskonaleniu umiejętności w tworzeniu nowoczesnych aplikacji webowych.',
